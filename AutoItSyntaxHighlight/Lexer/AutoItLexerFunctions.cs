@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using System.Collections.Generic;
@@ -23,17 +22,18 @@ namespace AutoItSyntaxHighlight.Lexer
 {
     internal sealed class AutoItLexerFunctions : IAutoItLexer
     {
+        private Regex m_Regex;
         private readonly IClassificationType m_Type;
 
         public AutoItLexerFunctions(IClassificationTypeRegistryService registry)
         {
             m_Type = registry.GetClassificationType("AutoItEditorFunctionsClassifier");
+            m_Regex = new Regex(@"([\w\d]+)\s*\(", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
         public List<ClassificationSpan> Parse(SnapshotSpan span)
         {
-            Regex reg = new Regex(@"([\w\d]+)\s*\(", RegexOptions.IgnoreCase);
-            var matches = reg.Matches(span.GetText());
+            var matches = m_Regex.Matches(span.GetText());
 
             if (matches.Count == 0)
             {
