@@ -42,28 +42,24 @@ namespace AutoItSyntaxHighlight
             List<ClassificationSpan> classifications = new List<ClassificationSpan>();
             foreach (var one in spanList)
             {
-                bool oneHasIntersections = false;
+                bool hasntHighestPriority = true;
                 foreach (var two in spanList)
                 {
-                    if(one == two)
-                    {
-                        break;
-                    }
-
-                    if(one.Span.Span.OverlapsWith(two.Span.Span) == false)
+                    if (one == two || (one.Span.Span.OverlapsWith(two.Span.Span) == false &&
+                       one.Span.Span.IntersectsWith(two.Span.Span) == false &&
+                       one.Span.Span.Contains(two.Span.Span) == false))
                     {
                         continue;
                     }
 
-                    oneHasIntersections = true;
-                    if (one.Priority >= two.Priority)
+                    if (one.Priority < two.Priority)
                     {
-                        classifications.Add(one.Span);
+                        hasntHighestPriority = false;
                         break;
                     }
                 }
 
-                if(oneHasIntersections == false)
+                if(hasntHighestPriority)
                 {
                     classifications.Add(one.Span);
                 }
