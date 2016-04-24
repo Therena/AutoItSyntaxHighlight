@@ -13,8 +13,13 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 - Systax Highlight for comments, functions, strings, keywords
 
-### Systax Highlight for comments, functions, strings, keywords
+### Systax Highlight for comments, functions, strings and keywords
 
+Open ".au3" files in Visual Studio **without** this extension:
+![Without Extension](Images/WithoutExtension.png)
+
+Open ".au3" files in Visual Studio **with** this extension:
+![With Extension](Images/WithExtension.png)
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
