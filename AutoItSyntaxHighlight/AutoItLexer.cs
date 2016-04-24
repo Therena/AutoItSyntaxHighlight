@@ -45,9 +45,7 @@ namespace AutoItSyntaxHighlight
                 bool hasntHighestPriority = true;
                 foreach (var two in spanList)
                 {
-                    if (one == two || (one.Span.Span.OverlapsWith(two.Span.Span) == false &&
-                       one.Span.Span.IntersectsWith(two.Span.Span) == false &&
-                       one.Span.Span.Contains(two.Span.Span) == false))
+                    if (one == two || one.Span.Span.OverlapsWith(two.Span.Span) == false)
                     {
                         continue;
                     }
