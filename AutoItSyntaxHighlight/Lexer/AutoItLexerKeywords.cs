@@ -47,7 +47,7 @@ namespace AutoItSyntaxHighlight.Lexer
             List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
             foreach (string word in m_Keywords)
             {
-                Regex reg = new Regex("(" + word + @")\s+", RegexOptions.IgnoreCase);
+                Regex reg = new Regex(@"(" + word + @")[\s<]+", RegexOptions.IgnoreCase);
                 var matches = reg.Matches(span.GetText());
 
                 if (matches.Count == 0)
@@ -63,11 +63,22 @@ namespace AutoItSyntaxHighlight.Lexer
                     }
 
                     Group group = match.Groups[1];
+                    if (group.Index > 0)
+                    {
+                        Regex regWhitspace = new Regex(@"\s+", RegexOptions.IgnoreCase);
+                        string code = "" + span.GetText()[group.Index - 1];
+                        if (regWhitspace.IsMatch(code) == false)
+                        {
+                            continue;
+                        }
+                    }
+
                     Span spanWord = new Span(span.Start.Position + group.Index, group.Length);
                     SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
 
                     var prioSpan = new PrioritiesClassificationSpan();
                     prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
+                    prioSpan.Priority = 200;
                     classifications.Add(prioSpan);
                 }
             }

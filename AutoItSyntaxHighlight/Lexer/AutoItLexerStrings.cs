@@ -34,11 +34,7 @@ namespace AutoItSyntaxHighlight.Lexer
 
         public List<PrioritiesClassificationSpan> Parse(SnapshotSpan span)
         {
-            string code = span.GetText();
-            code = code.Replace("\\\"", "**");
-            
-            var matches = m_Regex.Matches(code);
-
+            var matches = m_Regex.Matches(span.GetText());
             if (matches.Count == 0)
             {
                 return new List<PrioritiesClassificationSpan>();
@@ -52,6 +48,7 @@ namespace AutoItSyntaxHighlight.Lexer
 
                 var prioSpan = new PrioritiesClassificationSpan();
                 prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
+                prioSpan.Priority = 300;
                 classifications.Add(prioSpan);
             }
             return classifications;

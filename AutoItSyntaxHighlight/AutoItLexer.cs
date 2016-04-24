@@ -37,6 +37,40 @@ namespace AutoItSyntaxHighlight
             m_Lexer.Add(new AutoItLexerStrings(registry));
         }
 
+        public List<ClassificationSpan> flattenSpanList(List<PrioritiesClassificationSpan> spanList)
+        {
+            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
+            foreach (var one in spanList)
+            {
+                bool oneHasIntersections = false;
+                foreach (var two in spanList)
+                {
+                    if(one == two)
+                    {
+                        break;
+                    }
+
+                    if(one.Span.Span.OverlapsWith(two.Span.Span) == false)
+                    {
+                        continue;
+                    }
+
+                    oneHasIntersections = true;
+                    if (one.Priority >= two.Priority)
+                    {
+                        classifications.Add(one.Span);
+                        break;
+                    }
+                }
+
+                if(oneHasIntersections == false)
+                {
+                    classifications.Add(one.Span);
+                }
+            }
+            return classifications;
+        }
+
         public List<ClassificationSpan> Parse(SnapshotSpan span)
         {
             List<PrioritiesClassificationSpan> prioClassi = new List<PrioritiesClassificationSpan>();
@@ -44,14 +78,7 @@ namespace AutoItSyntaxHighlight
             {
                 prioClassi.AddRange(lexer.Parse(span));
             }
-
-            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
-            foreach(var clas in prioClassi)
-            {
-                classifications.Add(clas.Span);
-            }
-
-            return classifications;
+            return flattenSpanList(prioClassi);
         }
     }
 }

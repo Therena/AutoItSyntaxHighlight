@@ -51,6 +51,7 @@ namespace AutoItSyntaxHighlight.Lexer
 
                 var prioSpan = new PrioritiesClassificationSpan();
                 prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
+                prioSpan.Priority = 400;
                 classifications.Add(prioSpan);
             }
             return classifications;
