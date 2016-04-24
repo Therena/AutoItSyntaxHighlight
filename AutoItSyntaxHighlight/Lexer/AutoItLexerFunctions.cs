@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using System.Collections.Generic;
@@ -31,16 +32,16 @@ namespace AutoItSyntaxHighlight.Lexer
             m_Regex = new Regex(@"([\w\d]+)\s*\(", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
-        public List<ClassificationSpan> Parse(SnapshotSpan span)
+        public List<PrioritiesClassificationSpan> Parse(SnapshotSpan span)
         {
             var matches = m_Regex.Matches(span.GetText());
 
             if (matches.Count == 0)
             {
-                return new List<ClassificationSpan>();
+                return new List<PrioritiesClassificationSpan>();
             }
 
-            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
+            List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
             foreach (Match match in matches)
             {
                 if (match.Groups.Count == 0)
@@ -50,9 +51,11 @@ namespace AutoItSyntaxHighlight.Lexer
 
                 Group group = match.Groups[1];
                 Span spanWord = new Span(span.Start.Position + group.Index, group.Length);
-
                 SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
-                classifications.Add(new ClassificationSpan(snapshot, m_Type));
+
+                var prioSpan = new PrioritiesClassificationSpan();
+                prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
+                classifications.Add(prioSpan);
             }
             return classifications;
         }

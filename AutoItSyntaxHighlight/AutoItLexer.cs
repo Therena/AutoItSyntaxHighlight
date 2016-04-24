@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using AutoItSyntaxHighlight.Helper;
 using AutoItSyntaxHighlight.Lexer;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -38,11 +39,18 @@ namespace AutoItSyntaxHighlight
 
         public List<ClassificationSpan> Parse(SnapshotSpan span)
         {
-            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
+            List<PrioritiesClassificationSpan> prioClassi = new List<PrioritiesClassificationSpan>();
             foreach (var lexer in m_Lexer)
             {
-                classifications.AddRange(lexer.Parse(span));
+                prioClassi.AddRange(lexer.Parse(span));
             }
+
+            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
+            foreach(var clas in prioClassi)
+            {
+                classifications.Add(clas.Span);
+            }
+
             return classifications;
         }
     }

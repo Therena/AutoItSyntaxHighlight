@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using System.Collections.Generic;
@@ -41,9 +42,9 @@ namespace AutoItSyntaxHighlight.Lexer
                 "With", "EndWith" });
         }
 
-        public List<ClassificationSpan> Parse(SnapshotSpan span)
+        public List<PrioritiesClassificationSpan> Parse(SnapshotSpan span)
         {
-            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
+            List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
             foreach (string word in m_Keywords)
             {
                 Regex reg = new Regex("(" + word + @")\s+", RegexOptions.IgnoreCase);
@@ -63,9 +64,11 @@ namespace AutoItSyntaxHighlight.Lexer
 
                     Group group = match.Groups[1];
                     Span spanWord = new Span(span.Start.Position + group.Index, group.Length);
-
                     SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
-                    classifications.Add(new ClassificationSpan(snapshot, m_Type));
+
+                    var prioSpan = new PrioritiesClassificationSpan();
+                    prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
+                    classifications.Add(prioSpan);
                 }
             }
             return classifications;

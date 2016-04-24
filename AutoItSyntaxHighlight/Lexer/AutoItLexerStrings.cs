@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace AutoItSyntaxHighlight.Lexer
             m_Regex = new Regex("\"[^\"]*\"", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
-        public List<ClassificationSpan> Parse(SnapshotSpan span)
+        public List<PrioritiesClassificationSpan> Parse(SnapshotSpan span)
         {
             string code = span.GetText();
             code = code.Replace("\\\"", "**");
@@ -40,16 +41,18 @@ namespace AutoItSyntaxHighlight.Lexer
 
             if (matches.Count == 0)
             {
-                return new List<ClassificationSpan>();
+                return new List<PrioritiesClassificationSpan>();
             }
 
-            List<ClassificationSpan> classifications = new List<ClassificationSpan>();
+            List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
             foreach (Match match in matches)
             {
                 Span spanWord = new Span(span.Start.Position + match.Index, match.Length);
-
                 SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
-                classifications.Add(new ClassificationSpan(snapshot, m_Type));
+
+                var prioSpan = new PrioritiesClassificationSpan();
+                prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
+                classifications.Add(prioSpan);
             }
             return classifications;
         }

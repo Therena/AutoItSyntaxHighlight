@@ -13,14 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using AutoItSyntaxHighlight.Helper;
-using Microsoft.VisualStudio.Text;
-using System.Collections.Generic;
+using Microsoft.VisualStudio.Text.Classification;
 
-namespace AutoItSyntaxHighlight.Lexer
+namespace AutoItSyntaxHighlight.Helper
 {
-    internal interface IAutoItLexer
+    internal sealed class PrioritiesClassificationSpan
     {
-        List<PrioritiesClassificationSpan> Parse(SnapshotSpan span);
+        public int Priority { get; set; }
+        public ClassificationSpan Span { get; set; }
+
+        public PrioritiesClassificationSpan()
+        {
+            this.Priority = 100;
+        }
     }
 }

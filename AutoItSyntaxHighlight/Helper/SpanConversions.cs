@@ -39,34 +39,5 @@ namespace AutoItSyntaxHighlight.Helper
 
             return span;
         }
-
-        public static bool IsPointPartOfStringSpan(int point)
-        {
-            //foreach (Span stringSpan in m_Strings)
-            //{
-            //    if (stringSpan.Start <= point && stringSpan.End >= point)
-            //    {
-            //        return true;
-            //    }
-            //}
-            return false;
-        }
-
-        public static Span GetIntersectionWithComments(Span spanWord)
-        {
-            //Span spanWordResult = spanWord;
-            //foreach (var commentSpan in m_Comments)
-            //{
-            //    if (spanWordResult.IntersectsWith(commentSpan) == false)
-            //    {
-            //        continue;
-            //    }
-
-            //    var spanIntersect = spanWordResult.Intersection(commentSpan).Value;
-            //    spanWordResult = GetRelativeComplement(spanWordResult, spanIntersect);
-            //}
-            //return spanWordResult;
-            return spanWord;
-        }
     }
 }
