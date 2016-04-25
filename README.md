@@ -1,7 +1,7 @@
 # AutoItSyntaxHighlight
 
 <!-- Update the VS Gallery link after you upload the VSIX-->
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery]).
+Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/e34d5dcf-d1aa-4c70-9b3e-e3f2fe22d661).
 
 ---------------------------------------
 
