@@ -13,9 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using System.Linq;
 using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -25,24 +27,123 @@ namespace AutoItSyntaxHighlight.Lexer
     {
         private Regex m_Regex;
         private readonly IClassificationType m_Type;
+        private List<MultiLineComment> m_MultiLineComments;
+        public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
 
         public AutoItLexerComments(IClassificationTypeRegistryService registry)
         {
+            m_MultiLineComments = new List<MultiLineComment>();
             m_Type = registry.GetClassificationType("AutoItEditorCommentClassifier");
             m_Regex = new Regex(@"\s*;", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
+        private List<PrioritiesClassificationSpan> ParseMultiLine(SnapshotSpan span)
+        {
+            List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
+
+            string code = span.GetText();
+
+            int startPosition = IndexOfCommentStart(code);
+            if (startPosition < 0)
+            {
+                return new List<PrioritiesClassificationSpan>();
+            }
+            
+            int segmentIndex = span.Start.Position + startPosition;
+            int lineNumber = span.Snapshot.GetLineNumberFromPosition(segmentIndex);
+
+            try
+            {
+                string codeSegement = span.Snapshot.GetLineFromLineNumber(lineNumber).GetText();
+                int endPosition = IndexOfCommentEnd(codeSegement);
+                while (endPosition < 0)
+                {
+                    ++lineNumber;
+                    codeSegement = span.Snapshot.GetLineFromLineNumber(lineNumber).GetText();
+                    endPosition = IndexOfCommentEnd(codeSegement);
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                lineNumber = lineNumber - 1;
+            }
+
+            int startIndex = span.Start.Position + startPosition;
+            int endIndex = span.Snapshot.GetLineFromLineNumber(lineNumber).End.Position;
+            var multiSpan = new SnapshotSpan(span.Snapshot, startIndex, (endIndex - startIndex));
+
+            if (multiSpan.End > span.End)
+            {
+                ClassificationChanged?.Invoke(this,
+                    new ClassificationChangedEventArgs(new SnapshotSpan(span.End + 1, multiSpan.End)));
+            }
+
+            var prioSpan = new PrioritiesClassificationSpan();
+            prioSpan.Span = new ClassificationSpan(multiSpan, m_Type);
+            prioSpan.Priority = 400;
+            classifications.Add(prioSpan);
+
+            if (m_MultiLineComments.Any(a => a.Tracking.GetSpan(span.Snapshot).Span == multiSpan.Span) == false)
+            {
+                m_MultiLineComments.Add(new MultiLineComment()
+                {
+                    Version = span.Snapshot.Version,
+                    Tracking = span.Snapshot.CreateTrackingSpan(multiSpan.Span, SpanTrackingMode.EdgeExclusive)
+                });
+            }
+
+            return classifications;
+        }
+
         public List<PrioritiesClassificationSpan> Parse(SnapshotSpan span)
         {
+            List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
+
+            bool isInsideOfComment = false;
+            for (int i = m_MultiLineComments.Count - 1; i >= 0; i--)
+            {
+                var comment = m_MultiLineComments[i];
+                var multiSpan = comment.Tracking.GetSpan(span.Snapshot);
+                if(multiSpan.Length == 0)
+                {
+                    m_MultiLineComments.RemoveAt(i);
+                    continue;
+                }
+
+                if (span.IntersectsWith(multiSpan) == false)
+                {
+                    continue;
+                }
+
+                isInsideOfComment = true;
+                if (span.Snapshot.Version == comment.Version)
+                {
+                    var prioSpan = new PrioritiesClassificationSpan();
+                    prioSpan.Span = new ClassificationSpan(multiSpan, m_Type);
+                    prioSpan.Priority = 400;
+                    classifications.Add(prioSpan);
+                }
+                else
+                {
+                    m_MultiLineComments.RemoveAt(i);
+                    ClassificationChanged?.Invoke(this, new ClassificationChangedEventArgs(multiSpan));
+                    continue;
+                }
+            }
+
+            if (isInsideOfComment == false)
+            {
+                classifications.AddRange(ParseMultiLine(span));
+            }
+
             string code = span.GetText();
             var matches = m_Regex.Matches(code);
 
             if (matches.Count == 0)
             {
-                return new List<PrioritiesClassificationSpan>();
+                return classifications;
             }
 
-            List<PrioritiesClassificationSpan> classifications = new List<PrioritiesClassificationSpan>();
             foreach (Match match in matches)
             {
                 Span spanWord = new Span(span.Start.Position + match.Index,
@@ -55,6 +156,34 @@ namespace AutoItSyntaxHighlight.Lexer
                 classifications.Add(prioSpan);
             }
             return classifications;
+        }
+
+        private int IndexOfCommentStart(string code)
+        {
+            if (code.Contains("#cs"))
+            {
+                return code.IndexOf("#cs");
+            }
+
+            if (code.Contains("#comment-start"))
+            {
+                return code.IndexOf("#comment-start");
+            }
+            return -1;
+        }
+
+        private int IndexOfCommentEnd(string code)
+        {
+            if (code.Contains("#ce"))
+            {
+                return code.IndexOf("#ce");
+            }
+
+            if (code.Contains("#comment-end"))
+            {
+                return code.IndexOf("#comment-end");
+            }
+            return -1;
         }
     }
 }

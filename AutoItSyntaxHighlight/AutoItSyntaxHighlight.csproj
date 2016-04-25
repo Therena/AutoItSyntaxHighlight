@@ -53,8 +53,8 @@
     <Compile Include="ClassificationFormats\AutoItEditorFunctionsClassifierFormat.cs" />
     <Compile Include="ClassificationFormats\AutoItEditorKeywordClassifierFormat.cs" />
     <Compile Include="ClassificationFormats\AutoItEditorStringClassifierFormat.cs" />
+    <Compile Include="Helper\MultiLineComment.cs" />
     <Compile Include="Helper\PrioritiesClassificationSpan.cs" />
-    <Compile Include="Helper\SpanConversions.cs" />
     <Compile Include="Lexer\AutoItLexerComments.cs" />
     <Compile Include="Lexer\AutoItLexerFunctions.cs" />
     <Compile Include="Lexer\AutoItLexerKeywords.cs" />

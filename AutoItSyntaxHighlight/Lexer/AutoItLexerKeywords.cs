@@ -16,6 +16,7 @@
 using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -25,6 +26,7 @@ namespace AutoItSyntaxHighlight.Lexer
     {
         private readonly IClassificationType m_Type;
         private List<string> m_Keywords;
+        public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
 
         public AutoItLexerKeywords(IClassificationTypeRegistryService registry)
         {

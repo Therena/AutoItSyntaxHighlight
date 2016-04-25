@@ -13,18 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using AutoItSyntaxHighlight.Helper;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
-using System;
-using System.Collections.Generic;
 
-namespace AutoItSyntaxHighlight.Lexer
+namespace AutoItSyntaxHighlight.Helper
 {
-    internal interface IAutoItLexer
+    internal sealed class MultiLineComment
     {
-        event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
-
-        List<PrioritiesClassificationSpan> Parse(SnapshotSpan span);
+        public ITrackingSpan Tracking { get; set; }
+        public ITextVersion Version { get; set; }
     }
 }

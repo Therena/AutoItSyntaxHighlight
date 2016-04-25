@@ -17,6 +17,7 @@ using AutoItSyntaxHighlight.Helper;
 using AutoItSyntaxHighlight.Lexer;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+using System;
 using System.Collections.Generic;
 
 namespace AutoItSyntaxHighlight
@@ -25,6 +26,7 @@ namespace AutoItSyntaxHighlight
     {
         private List<IAutoItLexer> m_Lexer;
         private readonly IClassificationType classificationType;
+        public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
 
         public AutoItLexer(IClassificationTypeRegistryService registry)
         {
@@ -35,6 +37,15 @@ namespace AutoItSyntaxHighlight
             m_Lexer.Add(new AutoItLexerFunctions(registry));
             m_Lexer.Add(new AutoItLexerKeywords(registry));
             m_Lexer.Add(new AutoItLexerStrings(registry));
+
+            foreach(var item in m_Lexer)
+            {
+                item.ClassificationChanged += LexerClassificationChanged;
+            }
+        }
+        private void LexerClassificationChanged(object sender, ClassificationChangedEventArgs e)
+        {
+            ClassificationChanged?.Invoke(sender, e);
         }
 
         public List<ClassificationSpan> flattenSpanList(List<PrioritiesClassificationSpan> spanList)

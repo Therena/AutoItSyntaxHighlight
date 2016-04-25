@@ -34,6 +34,12 @@ namespace AutoItSyntaxHighlight
         internal AutoItEditorClassifier(IClassificationTypeRegistryService registry)
         {
             m_Lexer = new AutoItLexer(registry);
+            m_Lexer.ClassificationChanged += LexerClassificationChanged;
+        }
+
+        private void LexerClassificationChanged(object sender, ClassificationChangedEventArgs e)
+        {
+            ClassificationChanged?.Invoke(sender, e);
         }
 
         #region IClassifier
