@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 using System.ComponentModel.Composition;
@@ -30,7 +31,15 @@ namespace AutoItSyntaxHighlight.ClassificationFormats
         public AutoItEditorFunctionsClassifierFormat()
         {
             this.DisplayName = "AutoItEditorFunctionsClassifier"; // Human readable version of the name
-            this.ForegroundColor = Color.FromRgb(78, 201, 176);
+            var color = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundBrushKey);
+            if (color.R == 37 && color.G == 37 && color.B == 38)
+            {
+                this.ForegroundColor = Color.FromRgb(78, 201, 176); // Dark Theme
+            }
+            else
+            {
+                this.ForegroundColor = Color.FromRgb(42, 143, 186); // Other Themes
+            }
         }
     }
 }

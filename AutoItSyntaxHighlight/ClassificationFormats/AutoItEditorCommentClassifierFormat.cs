@@ -17,6 +17,7 @@ using System.ComponentModel.Composition;
 using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
+using Microsoft.VisualStudio.PlatformUI;
 
 namespace AutoItSyntaxHighlight.ClassificationFormats
 {
@@ -30,7 +31,15 @@ namespace AutoItSyntaxHighlight.ClassificationFormats
         public AutoItEditorCommentClassifierFormat()
         {
             this.DisplayName = "AutoItEditorCommentClassifier"; // Human readable version of the name
-            this.ForegroundColor = Color.FromRgb(87, 166, 74);
+            var color = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundBrushKey);
+            if(color.R == 37 && color.G == 37 && color.B == 38)
+            {
+                this.ForegroundColor = Color.FromRgb(87, 166, 74); // Dark Theme
+            }
+            else
+            {
+                this.ForegroundColor = Color.FromRgb(0, 128, 0); // Other Themes
+            }
         }
     }
 }
