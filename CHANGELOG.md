@@ -15,3 +15,9 @@ on the official Visual Studio extension gallery.
 - [x] Highlight comments
 - [x] Highlight AutoIt functions
 - [x] Highlight string values
+
+## 1.0.0.1
+
+**2016-04-26**
+
+- [x] Visual Studio 2013 compatibility
