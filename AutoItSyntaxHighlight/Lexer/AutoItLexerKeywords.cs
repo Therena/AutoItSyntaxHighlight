@@ -26,7 +26,10 @@ namespace AutoItSyntaxHighlight.Lexer
     {
         private readonly IClassificationType m_Type;
         private List<string> m_Keywords;
+
+#pragma warning disable CS0067
         public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
+#pragma warning restore CS0067
 
         public AutoItLexerKeywords(IClassificationTypeRegistryService registry)
         {

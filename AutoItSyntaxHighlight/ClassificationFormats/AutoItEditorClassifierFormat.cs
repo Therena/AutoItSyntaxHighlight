@@ -22,7 +22,7 @@ namespace AutoItSyntaxHighlight.ClassificationFormats
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = "AutoItEditorClassifier")]
     [Name("AutoItEditorClassifier")]
-    [UserVisible(true)] // This should be visible to the end user
+    [UserVisible(false)] // This should be visible to the end user
     [Order(Before = Priority.Default)] // Set the priority to be after the default classifiers
     internal sealed class AutoItEditorClassifierFormat : ClassificationFormatDefinition
     {

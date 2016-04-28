@@ -21,3 +21,9 @@ on the official Visual Studio extension gallery.
 **2016-04-26**
 
 - [x] Visual Studio 2013 compatibility
+
+## 1.0.0.2
+
+**2016-04-28**
+
+- [x] Adjust the human readable names of the colors for the VS settings 

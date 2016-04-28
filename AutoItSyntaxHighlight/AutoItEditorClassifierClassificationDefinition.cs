@@ -26,6 +26,7 @@ namespace AutoItSyntaxHighlight
     {
         // This disables "The field is never used" compiler's warning. Justification: the field is used by MEF.
 #pragma warning disable 169
+#pragma warning disable CS0414
 
         /// <summary>
         /// Defines the "AutoItEditorClassifier" classification type.
@@ -61,5 +62,6 @@ namespace AutoItSyntaxHighlight
         internal static FileExtensionToContentTypeDefinition AutoItFileExtensionDefinition = null;
 
 #pragma warning restore 169
+#pragma warning restore CS0414
     }
 }
