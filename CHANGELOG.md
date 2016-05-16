@@ -27,3 +27,9 @@ on the official Visual Studio extension gallery.
 **2016-04-28**
 
 - [x] Adjust the human readable names of the colors for the VS settings 
+
+## 1.0.0.3
+
+**2016-05-16**
+
+- [x] Support for Visual Studio 115 
