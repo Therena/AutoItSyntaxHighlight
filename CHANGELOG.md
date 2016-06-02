@@ -32,4 +32,10 @@ on the official Visual Studio extension gallery.
 
 **2016-05-16**
 
-- [x] Support for Visual Studio 115 
+- [x] Support for Visual Studio 15 
+
+## 1.0.0.4
+
+**2016-06-03**
+
+- [x] Skipped Visual Studio 2013 support because of incompatibilities
