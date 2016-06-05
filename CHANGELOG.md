@@ -39,3 +39,9 @@ on the official Visual Studio extension gallery.
 **2016-06-03**
 
 - [x] Skipped Visual Studio 2013 support because of incompatibilities
+
+## 1.0.0.5
+
+**2016-06-05**
+
+- [x] Fix bug that semicolons in strings are detected as comment start

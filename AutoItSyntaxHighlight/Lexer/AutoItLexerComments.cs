@@ -28,12 +28,14 @@ namespace AutoItSyntaxHighlight.Lexer
         private Regex m_Regex;
         private readonly IClassificationType m_Type;
         private List<MultiLineComment> m_MultiLineComments;
+        private IClassificationTypeRegistryService m_Registry;
         public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
 
         public AutoItLexerComments(IClassificationTypeRegistryService registry)
         {
+            m_Registry = registry;
             m_MultiLineComments = new List<MultiLineComment>();
-            m_Type = registry.GetClassificationType("AutoItEditorCommentClassifier");
+            m_Type = m_Registry.GetClassificationType("AutoItEditorCommentClassifier");
             m_Regex = new Regex(@"\s*;", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         }
 
@@ -146,6 +148,11 @@ namespace AutoItSyntaxHighlight.Lexer
 
             foreach (Match match in matches)
             {
+                if(IsMatchInString(match, span))
+                {
+                    continue;
+                }
+
                 Span spanWord = new Span(span.Start.Position + match.Index,
                     span.GetText().Length - match.Index);
                 SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
@@ -156,6 +163,21 @@ namespace AutoItSyntaxHighlight.Lexer
                 classifications.Add(prioSpan);
             }
             return classifications;
+        }
+
+        private bool IsMatchInString(Match match, SnapshotSpan span)
+        {
+            var stringLexer = new AutoItLexerStrings(m_Registry);
+            var stringSpans = stringLexer.Parse(span);
+
+            foreach(var strSpan in stringSpans)
+            {
+                if (strSpan.Span.Span.Contains(span.Start.Position + match.Index))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private int IndexOfCommentStart(string code)
