@@ -30,7 +30,7 @@ namespace AutoItSyntaxHighlight.ClassificationFormats
     {
         public AutoItEditorCommentClassifierFormat()
         {
-            this.DisplayName = "AutoIt comments"; // Human readable version of the name
+            this.DisplayName = "AutoIt comments";
             var color = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundBrushKey);
             if(color.R == 37 && color.G == 37 && color.B == 38)
             {

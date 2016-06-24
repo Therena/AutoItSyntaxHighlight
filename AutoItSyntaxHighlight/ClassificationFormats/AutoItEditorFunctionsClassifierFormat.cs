@@ -24,13 +24,13 @@ namespace AutoItSyntaxHighlight.ClassificationFormats
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = "AutoItEditorFunctionsClassifier")]
     [Name("AutoItEditorFunctionsClassifier")]
-    [UserVisible(true)] // This should be visible to the end user
-    [Order(Before = Priority.Default)] // Set the priority to be after the default classifiers
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
     internal sealed class AutoItEditorFunctionsClassifierFormat : ClassificationFormatDefinition
     {
         public AutoItEditorFunctionsClassifierFormat()
         {
-            this.DisplayName = "AutoIt functions"; // Human readable version of the name
+            this.DisplayName = "AutoIt functions";
             var color = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundBrushKey);
             if (color.R == 37 && color.G == 37 && color.B == 38)
             {

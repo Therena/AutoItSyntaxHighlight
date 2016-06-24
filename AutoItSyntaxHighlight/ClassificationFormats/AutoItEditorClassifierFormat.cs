@@ -22,13 +22,13 @@ namespace AutoItSyntaxHighlight.ClassificationFormats
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = "AutoItEditorClassifier")]
     [Name("AutoItEditorClassifier")]
-    [UserVisible(false)] // This should be visible to the end user
-    [Order(Before = Priority.Default)] // Set the priority to be after the default classifiers
+    [UserVisible(false)]
+    [Order(Before = Priority.Default)]
     internal sealed class AutoItEditorClassifierFormat : ClassificationFormatDefinition
     {
         public AutoItEditorClassifierFormat()
         {
-            this.DisplayName = "AutoItEditorClassifier"; // Human readable version of the name
+            this.DisplayName = "AutoItEditorClassifier";
         }
     }
 }

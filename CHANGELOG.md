@@ -45,3 +45,9 @@ on the official Visual Studio extension gallery.
 **2016-06-05**
 
 - [x] Fix bug that semicolons in strings are detected as comment start
+
+## 1.0.0.6
+
+**2016-06-24**
+
+- [x] Minor changes and refactorings
