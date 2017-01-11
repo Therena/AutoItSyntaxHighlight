@@ -51,3 +51,9 @@ on the official Visual Studio extension gallery.
 **2016-06-24**
 
 - [x] Minor changes and refactorings
+
+## 1.0.0.7
+
+**2017-01-11**
+
+- [x] Make the extension compatible to Visual Studio 2017
