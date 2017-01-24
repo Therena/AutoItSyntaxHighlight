@@ -57,3 +57,9 @@ on the official Visual Studio extension gallery.
 **2017-01-11**
 
 - [x] Make the extension compatible to Visual Studio 2017
+
+## 1.0.0.8
+
+**2017-01-24**
+
+- [x] Make the extension compatible to Visual Studio 2017
