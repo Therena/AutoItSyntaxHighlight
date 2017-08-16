@@ -70,3 +70,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Updated the dependencies
 
+## 1.0.0.10
+
+**2017-08-16**
+
+- [x] Visual Studio compatibility
+- [x] Updated the dependencies
