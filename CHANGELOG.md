@@ -76,3 +76,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Visual Studio compatibility
 - [x] Updated the dependencies
+
+## 1.0.0.11
+
+**2017-12-12**
+
+- [x] Updated the dependencies
