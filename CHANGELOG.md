@@ -82,3 +82,9 @@ on the official Visual Studio extension gallery.
 **2017-12-12**
 
 - [x] Updated the dependencies
+
+## 1.0.0.12
+
+**2018-01-02**
+
+- [x] Updated copyright
