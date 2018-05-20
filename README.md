@@ -1,29 +1,32 @@
 # AutoItSyntaxHighlight
 
-<!-- Update the VS Gallery link after you upload the VSIX-->
+AutoIt scripting language support for Visual Studio
 Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/e34d5dcf-d1aa-4c70-9b3e-e3f2fe22d661).
 
----------------------------------------
+## AutoIt
 
-AutoIt scripting language support for Visual Studio
+![AutoIt logo](https://www.autoitscript.com/w/images/8/89/Logo2.png)
 
-See the [changelog](CHANGELOG.md) for changes and roadmap.
+AutoIt scripting language: [AutoIt](https://www.autoitscript.com)
 
 ## Features
 
-- Systax Highlight for comments, functions, strings, keywords
+- Syntax highlight for Auto scripts in Visual Studio
+  - Syntax highlight for comments
+  - Syntax highlight for functions
+  - Syntax highlight for strings
+  - Syntax highlight for keywords
 
-### Systax Highlight for comments, functions, strings and keywords
+### Syntax highlight for comments, functions, strings and keywords
 
 Open ".au3" files in Visual Studio **without** this extension:
-![Without Extension](Images/WithoutExtension.png)
+
+![Without extension](https://github.com/Therena/AutoItSyntaxHighlight/blob/master/Images/WithoutExtension.png?raw=true)
 
 Open ".au3" files in Visual Studio **with** this extension:
-![With Extension](Images/WithExtension.png)
 
-## Contribute
-Check out the [contribution guidelines](CONTRIBUTING.md)
-if you want to contribute to this project.
+![With extension](https://github.com/Therena/AutoItSyntaxHighlight/blob/master/Images/WithExtension.png?raw=true)
 
 ## License
-[Apache 2.0](LICENSE)
+
+[Apache 2.0](https://github.com/Therena/AutoItSyntaxHighlight/blob/master/LICENSE)
