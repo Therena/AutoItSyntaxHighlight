@@ -24,7 +24,7 @@ namespace AutoItSyntaxHighlight
 {
     internal sealed class AutoItLexer
     {
-        private List<IAutoItLexer> m_Lexer;
+        private readonly List<IAutoItLexer> m_Lexer;
         private readonly IClassificationType classificationType;
         public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
 
@@ -32,13 +32,15 @@ namespace AutoItSyntaxHighlight
         {
             this.classificationType = registry.GetClassificationType("AutoItEditorClassifier");
 
-            m_Lexer = new List<IAutoItLexer>();
-            m_Lexer.Add(new AutoItLexerComments(registry));
-            m_Lexer.Add(new AutoItLexerFunctions(registry));
-            m_Lexer.Add(new AutoItLexerKeywords(registry));
-            m_Lexer.Add(new AutoItLexerStrings(registry));
+            m_Lexer = new List<IAutoItLexer>
+            {
+                new AutoItLexerComments(registry),
+                new AutoItLexerFunctions(registry),
+                new AutoItLexerKeywords(registry),
+                new AutoItLexerStrings(registry)
+            };
 
-            foreach(var item in m_Lexer)
+            foreach (var item in m_Lexer)
             {
                 item.ClassificationChanged += LexerClassificationChanged;
             }
@@ -48,7 +50,7 @@ namespace AutoItSyntaxHighlight
             ClassificationChanged?.Invoke(sender, e);
         }
 
-        public List<ClassificationSpan> flattenSpanList(List<PrioritiesClassificationSpan> spanList)
+        public List<ClassificationSpan> FlattenSpanList(List<PrioritiesClassificationSpan> spanList)
         {
             List<ClassificationSpan> classifications = new List<ClassificationSpan>();
             foreach (var one in spanList)
@@ -83,7 +85,7 @@ namespace AutoItSyntaxHighlight
             {
                 prioClassi.AddRange(lexer.Parse(span));
             }
-            return flattenSpanList(prioClassi);
+            return FlattenSpanList(prioClassi);
         }
     }
 }

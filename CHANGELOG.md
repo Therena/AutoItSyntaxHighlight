@@ -101,3 +101,10 @@ on the official Visual Studio extension gallery.
 
 - [x] Updated the dependencies
 - [x] Change to the async extension loading method
+
+## 1.0.0.15
+
+**2018-08-30**
+
+- [x] Updated the dependencies
+- [x] Small code refactoring
