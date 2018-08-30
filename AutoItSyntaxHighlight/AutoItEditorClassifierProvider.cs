@@ -27,7 +27,7 @@ namespace AutoItSyntaxHighlight
         // Disable "Field is never assigned to..." compiler's warning. Justification: the field is assigned by MEF.
 #pragma warning disable 649
         [Import]
-        private IClassificationTypeRegistryService classificationRegistry;
+        private readonly IClassificationTypeRegistryService classificationRegistry;
 
 #pragma warning restore 649
 
