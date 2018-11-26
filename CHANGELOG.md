@@ -108,3 +108,9 @@ on the official Visual Studio extension gallery.
 
 - [x] Updated the dependencies
 - [x] Small code refactoring
+
+## 1.0.0.16
+
+**2018-11-26**
+
+- [x] Updated the dependencies
