@@ -114,3 +114,10 @@ on the official Visual Studio extension gallery.
 **2018-11-26**
 
 - [x] Updated the dependencies
+
+## 1.0.0.17
+
+**2019-02-20**
+
+- [x] Re-target to DotNet 4.7.2
+- [x] Updated the dependencies
