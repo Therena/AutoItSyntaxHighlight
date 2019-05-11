@@ -1,7 +1,10 @@
 # AutoItSyntaxHighlight
 
 AutoIt scripting language support for Visual Studio
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/e34d5dcf-d1aa-4c70-9b3e-e3f2fe22d661).
+
+Download this extension from the Visual Studio Marketplace
+- Visual Studio 2015 - Visual Studio 2017: [AutoIt Syntax Highlight 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight)
+- Visual Studio 2019: [AutoIt Syntax Highlight 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2019)
 
 ## AutoIt
 
