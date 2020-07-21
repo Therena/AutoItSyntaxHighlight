@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="F8962199-ADC3-4896-B150-81CF7504AD26" Version="1.2019.0.0" Language="en-US" Publisher="David Roller" />
+        <Identity Id="F8962199-ADC3-4896-B150-81CF7504AD26" Version="1.2019.0.1" Language="en-US" Publisher="David Roller" />
         <DisplayName>AutoIt Syntax Highlight 2019</DisplayName>
         <Description xml:space="preserve">AutoIt scripting language support for Visual Studio</Description>
         <License>LICENSE</License>
