@@ -25,7 +25,7 @@ namespace AutoItSyntaxHighlight.Lexer
     internal sealed class AutoItLexerKeywords : IAutoItLexer
     {
         private readonly IClassificationType m_Type;
-        private List<string> m_Keywords;
+        private readonly List<string> m_Keywords;
 
 #pragma warning disable CS0067
         public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
@@ -36,7 +36,7 @@ namespace AutoItSyntaxHighlight.Lexer
             m_Type = registry.GetClassificationType("AutoItEditorKeywordClassifier");
 
             // https://www.autoitscript.com/autoit3/docs/keywords.htm
-            m_Keywords = new List<string>(new string[] { "True", "False",
+            m_Keywords = new List<string>(new[] { "True", "False",
                 "ContinueCase", "ContinueLoop", "#Region", "#EndRegion",
                 "Default", "Dim", "Global", "Local", "Const", "Do", "Until", "Enum",
                 "Exit", "ExitLoop", "For", "To", "Step", "Next", "In", "Next",
@@ -70,9 +70,9 @@ namespace AutoItSyntaxHighlight.Lexer
                     Group group = match.Groups[1];
                     if (group.Index > 0)
                     {
-                        Regex regWhitspace = new Regex(@"\s+", RegexOptions.IgnoreCase);
+                        Regex regWhitespace = new Regex(@"\s+", RegexOptions.IgnoreCase);
                         string code = "" + span.GetText()[group.Index - 1];
-                        if (regWhitspace.IsMatch(code) == false)
+                        if (regWhitespace.IsMatch(code) == false)
                         {
                             continue;
                         }
@@ -81,10 +81,10 @@ namespace AutoItSyntaxHighlight.Lexer
                     Span spanWord = new Span(span.Start.Position + group.Index, group.Length);
                     SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
 
-                    var prioSpan = new PrioritiesClassificationSpan();
-                    prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
-                    prioSpan.Priority = 200;
-                    classifications.Add(prioSpan);
+                    var priorClassification = new PrioritiesClassificationSpan();
+                    priorClassification.Span = new ClassificationSpan(snapshot, m_Type);
+                    priorClassification.Priority = 200;
+                    classifications.Add(priorClassification);
                 }
             }
             return classifications;

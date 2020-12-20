@@ -22,7 +22,7 @@ namespace AutoItSyntaxHighlight
 {
     internal class AutoItEditorClassifier : IClassifier
     {
-        private AutoItLexer m_Lexer;
+        private readonly AutoItLexer m_Lexer;
 
         internal AutoItEditorClassifier(IClassificationTypeRegistryService registry)
         {

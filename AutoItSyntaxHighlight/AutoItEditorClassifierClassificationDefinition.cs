@@ -26,33 +26,33 @@ namespace AutoItSyntaxHighlight
 #pragma warning disable CS0414
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("AutoItEditorClassifier")]
-        private static ClassificationTypeDefinition typeDefinition = null;
+        private static ClassificationTypeDefinition m_TypeDefinition = null;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("AutoItEditorCommentClassifier")]
-        private static ClassificationTypeDefinition typeCommentDefinition = null;
+        private static ClassificationTypeDefinition m_TypeCommentDefinition = null;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("AutoItEditorStringClassifier")]
-        private static ClassificationTypeDefinition typeStringDefinition = null;
+        private static ClassificationTypeDefinition m_TypeStringDefinition = null;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("AutoItEditorFunctionsClassifier")]
-        private static ClassificationTypeDefinition typeFunctionDefinition = null;
+        private static ClassificationTypeDefinition m_TypeFunctionDefinition = null;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("AutoItEditorKeywordClassifier")]
-        private static ClassificationTypeDefinition typeKeywordDefinition = null;
+        private static ClassificationTypeDefinition m_TypeKeywordDefinition = null;
 
         [Export]
         [Name("au3")]
         [BaseDefinition("code")]
-        internal static ContentTypeDefinition AutoItContentDefinition = null;
+        internal static ContentTypeDefinition ItContentDefinition = null;
 
         [Export]
         [FileExtension(".au3")]
         [ContentType("au3")]
-        internal static FileExtensionToContentTypeDefinition AutoItFileExtensionDefinition = null;
+        internal static FileExtensionToContentTypeDefinition ItFileExtensionDefinition = null;
 
 #pragma warning restore 169
 #pragma warning restore CS0414
