@@ -14,7 +14,6 @@
 // limitations under the License.
 //
 using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Classification;
 
 namespace AutoItSyntaxHighlight.Helper
 {

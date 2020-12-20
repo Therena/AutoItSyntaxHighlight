@@ -24,7 +24,7 @@ namespace AutoItSyntaxHighlight.Lexer
 {
     internal sealed class AutoItLexerStrings : IAutoItLexer
     {
-        private Regex m_Regex;
+        private readonly Regex m_Regex;
         private readonly IClassificationType m_Type;
 
 #pragma warning disable CS0067
@@ -51,10 +51,11 @@ namespace AutoItSyntaxHighlight.Lexer
                 Span spanWord = new Span(span.Start.Position + match.Index, match.Length);
                 SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
 
-                var prioSpan = new PrioritiesClassificationSpan();
-                prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
-                prioSpan.Priority = 300;
-                classifications.Add(prioSpan);
+                var priorClassification = new PrioritiesClassificationSpan
+                {
+                    Span = new ClassificationSpan(snapshot, m_Type), Priority = 300
+                };
+                classifications.Add(priorClassification);
             }
             return classifications;
         }

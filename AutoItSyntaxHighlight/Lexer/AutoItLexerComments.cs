@@ -25,10 +25,10 @@ namespace AutoItSyntaxHighlight.Lexer
 {
     internal sealed class AutoItLexerComments : IAutoItLexer
     {
-        private Regex m_Regex;
+        private readonly Regex m_Regex;
         private readonly IClassificationType m_Type;
-        private List<MultiLineComment> m_MultiLineComments;
-        private IClassificationTypeRegistryService m_Registry;
+        private readonly List<MultiLineComment> m_MultiLineComments;
+        private readonly IClassificationTypeRegistryService m_Registry;
         public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
 
         public AutoItLexerComments(IClassificationTypeRegistryService registry)
@@ -56,13 +56,13 @@ namespace AutoItSyntaxHighlight.Lexer
 
             try
             {
-                string codeSegement = span.Snapshot.GetLineFromLineNumber(lineNumber).GetText();
-                int endPosition = IndexOfCommentEnd(codeSegement);
+                string codeSegment = span.Snapshot.GetLineFromLineNumber(lineNumber).GetText();
+                int endPosition = IndexOfCommentEnd(codeSegment);
                 while (endPosition < 0)
                 {
                     ++lineNumber;
-                    codeSegement = span.Snapshot.GetLineFromLineNumber(lineNumber).GetText();
-                    endPosition = IndexOfCommentEnd(codeSegement);
+                    codeSegment = span.Snapshot.GetLineFromLineNumber(lineNumber).GetText();
+                    endPosition = IndexOfCommentEnd(codeSegment);
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -80,10 +80,11 @@ namespace AutoItSyntaxHighlight.Lexer
                     new ClassificationChangedEventArgs(new SnapshotSpan(span.End + 1, multiSpan.End)));
             }
 
-            var prioSpan = new PrioritiesClassificationSpan();
-            prioSpan.Span = new ClassificationSpan(multiSpan, m_Type);
-            prioSpan.Priority = 400;
-            classifications.Add(prioSpan);
+            var priorClassification = new PrioritiesClassificationSpan
+            {
+                Span = new ClassificationSpan(multiSpan, m_Type), Priority = 400
+            };
+            classifications.Add(priorClassification);
 
             if (m_MultiLineComments.Any(a => a.Tracking.GetSpan(span.Snapshot).Span == multiSpan.Span) == false)
             {
@@ -120,16 +121,16 @@ namespace AutoItSyntaxHighlight.Lexer
                 isInsideOfComment = true;
                 if (span.Snapshot.Version == comment.Version)
                 {
-                    var prioSpan = new PrioritiesClassificationSpan();
-                    prioSpan.Span = new ClassificationSpan(multiSpan, m_Type);
-                    prioSpan.Priority = 400;
-                    classifications.Add(prioSpan);
+                    var priorClassification = new PrioritiesClassificationSpan
+                    {
+                        Span = new ClassificationSpan(multiSpan, m_Type), Priority = 400
+                    };
+                    classifications.Add(priorClassification);
                 }
                 else
                 {
                     m_MultiLineComments.RemoveAt(i);
                     ClassificationChanged?.Invoke(this, new ClassificationChangedEventArgs(multiSpan));
-                    continue;
                 }
             }
 
@@ -157,10 +158,11 @@ namespace AutoItSyntaxHighlight.Lexer
                     span.GetText().Length - match.Index);
                 SnapshotSpan snapshot = new SnapshotSpan(span.Snapshot, spanWord);
 
-                var prioSpan = new PrioritiesClassificationSpan();
-                prioSpan.Span = new ClassificationSpan(snapshot, m_Type);
-                prioSpan.Priority = 400;
-                classifications.Add(prioSpan);
+                var priorClassification = new PrioritiesClassificationSpan
+                {
+                    Span = new ClassificationSpan(snapshot, m_Type), Priority = 400
+                };
+                classifications.Add(priorClassification);
             }
             return classifications;
         }
@@ -184,12 +186,12 @@ namespace AutoItSyntaxHighlight.Lexer
         {
             if (code.Contains("#cs"))
             {
-                return code.IndexOf("#cs");
+                return code.IndexOf("#cs", StringComparison.Ordinal);
             }
 
             if (code.Contains("#comment-start"))
             {
-                return code.IndexOf("#comment-start");
+                return code.IndexOf("#comment-start", StringComparison.Ordinal);
             }
             return -1;
         }
@@ -198,12 +200,12 @@ namespace AutoItSyntaxHighlight.Lexer
         {
             if (code.Contains("#ce"))
             {
-                return code.IndexOf("#ce");
+                return code.IndexOf("#ce", StringComparison.Ordinal);
             }
 
             if (code.Contains("#comment-end"))
             {
-                return code.IndexOf("#comment-end");
+                return code.IndexOf("#comment-end", StringComparison.Ordinal);
             }
             return -1;
         }

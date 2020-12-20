@@ -25,12 +25,14 @@ namespace AutoItSyntaxHighlight
     internal sealed class AutoItLexer
     {
         private readonly List<IAutoItLexer> m_Lexer;
-        private readonly IClassificationType classificationType;
+
         public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
+        
+        public IClassificationType ClassificationType { get; }
 
         public AutoItLexer(IClassificationTypeRegistryService registry)
         {
-            this.classificationType = registry.GetClassificationType("AutoItEditorClassifier");
+            this.ClassificationType = registry.GetClassificationType("AutoItEditorClassifier");
 
             m_Lexer = new List<IAutoItLexer>
             {
@@ -55,7 +57,7 @@ namespace AutoItSyntaxHighlight
             List<ClassificationSpan> classifications = new List<ClassificationSpan>();
             foreach (var one in spanList)
             {
-                bool hasntHighestPriority = true;
+                bool hasNotHighestPriority = true;
                 foreach (var two in spanList)
                 {
                     if (one == two || one.Span.Span.OverlapsWith(two.Span.Span) == false)
@@ -65,12 +67,12 @@ namespace AutoItSyntaxHighlight
 
                     if (one.Priority < two.Priority)
                     {
-                        hasntHighestPriority = false;
+                        hasNotHighestPriority = false;
                         break;
                     }
                 }
 
-                if(hasntHighestPriority)
+                if(hasNotHighestPriority)
                 {
                     classifications.Add(one.Span);
                 }
@@ -80,12 +82,12 @@ namespace AutoItSyntaxHighlight
 
         public List<ClassificationSpan> Parse(SnapshotSpan span)
         {
-            List<PrioritiesClassificationSpan> prioClassi = new List<PrioritiesClassificationSpan>();
+            List<PrioritiesClassificationSpan> priorClassification = new List<PrioritiesClassificationSpan>();
             foreach (var lexer in m_Lexer)
             {
-                prioClassi.AddRange(lexer.Parse(span));
+                priorClassification.AddRange(lexer.Parse(span));
             }
-            return FlattenSpanList(prioClassi);
+            return FlattenSpanList(priorClassification);
         }
     }
 }

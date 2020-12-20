@@ -27,14 +27,14 @@ namespace AutoItSyntaxHighlight
         // Disable "Field is never assigned to..." compiler's warning. Justification: the field is assigned by MEF.
 #pragma warning disable 649
         [Import]
-        private readonly IClassificationTypeRegistryService classificationRegistry;
+        private readonly IClassificationTypeRegistryService m_ClassificationRegistry;
 
 #pragma warning restore 649
 
         #region IClassifierProvider
         public IClassifier GetClassifier(ITextBuffer buffer)
         {
-            return buffer.Properties.GetOrCreateSingletonProperty<AutoItEditorClassifier>(creator: () => new AutoItEditorClassifier(this.classificationRegistry));
+            return buffer.Properties.GetOrCreateSingletonProperty(creator: () => new AutoItEditorClassifier(this.m_ClassificationRegistry));
         }
         #endregion
     }
