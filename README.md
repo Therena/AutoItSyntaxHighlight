@@ -2,6 +2,8 @@
 
 AutoIt scripting language support for Visual Studio
 
+![CodeQL](https://github.com/Therena/AutoItSyntaxHighlight/actions/workflows/codeql-analysis.yml/badge.svg)
+
 Download this extension from the Visual Studio Marketplace
 - Visual Studio 2015 - Visual Studio 2017: [AutoIt Syntax Highlight 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight)
 - Visual Studio 2019: [AutoIt Syntax Highlight 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2019)
