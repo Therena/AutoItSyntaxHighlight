@@ -7,6 +7,7 @@ AutoIt scripting language support for Visual Studio
 Download this extension from the Visual Studio Marketplace
 - Visual Studio 2015 - Visual Studio 2017: [AutoIt Syntax Highlight 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight)
 - Visual Studio 2019: [AutoIt Syntax Highlight 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2019)
+- Visual Studio 2022: [AutoIt Syntax Highlight 2022](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2022)
 
 ## AutoIt
 
