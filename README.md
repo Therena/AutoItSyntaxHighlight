@@ -4,16 +4,15 @@
 
 This extension integrates the **AutoIt** scripting language into Visual Studio, providing native syntax highlighting for `.au3` files to improve code readability and developer productivity.
 
-## 📥 Installation
-Select the version appropriate for your Visual Studio installation:
+## ⬇️ Download from the Visual Studio Marketplace
 
-| Visual Studio Version | Marketplace Extension |
-| :--- | :--- |
-| **Visual Studio 2022** | [AutoIt Syntax Highlight 2026](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2026) |
-| **Visual Studio 2022** | [AutoIt Syntax Highlight 2022](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2022) |
-| **Visual Studio 2019** | [AutoIt Syntax Highlight 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2019) |
-| **Visual Studio 2017** | [AutoIt Syntax Highlight 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight) |
-| **Visual Studio 2015** | [AutoIt Syntax Highlight 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight) |
+Choose the version that matches your Visual Studio environment:
+
+* **Visual Studio 2026:** [ConEmu Integration 2026](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2026)
+* **Visual Studio 2022:** [ConEmu Integration 2022](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2022)
+* **Visual Studio 2019:** [ConEmu Integration 2019](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight2019)
+* **Visual Studio 2017:** [ConEmu Integration 2017](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight)
+* **Visual Studio 2015:** [ConEmu Integration 2015](https://marketplace.visualstudio.com/items?itemName=DavidRoller.AutoItSyntaxHighlight)
 
 ## ✨ Features
 
